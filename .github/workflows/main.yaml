@@ -43,21 +43,21 @@ jobs:
           echo "$GITHUB_WORKSPACE/.jfrog/bin" >> "$GITHUB_PATH"
           echo "JFROG_CLI_HOME_DIR=$GITHUB_WORKSPACE/.jfrog" >> "$GITHUB_ENV"
 
-      - name: Upload to Artifactory
-        env:
-          ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
-          ARTIFACTORY_REPO: debian-public-local
-          DISTRIBUTION: focal
-          COMPONENT: fog-sw
-          ARCHITECTURE: amd64
-          CI: true
-        if: github.event_name == 'push'
-        run: |
-          set -exu
-          jfrog rt c import "$ARTIFACTORY_TOKEN"
-          jfrog rt ping
-          pkg=$(find bin -name 'ros-foxy-indoor-pos*.deb')
-          jfrog rt u --deb "$DISTRIBUTION/$COMPONENT/$ARCHITECTURE" \
-                     --target-props COMMIT="$GITHUB_SHA" \
-                     "$pkg" \
-                     "$ARTIFACTORY_REPO"
+          #      - name: Upload to Artifactory
+          #        env:
+          #          ARTIFACTORY_TOKEN: ${{ secrets.ARTIFACTORY_TOKEN }}
+          #          ARTIFACTORY_REPO: debian-public-local
+          #          DISTRIBUTION: focal
+          #          COMPONENT: fog-sw
+          #          ARCHITECTURE: amd64
+          #          CI: true
+          #        if: github.event_name == 'push'
+          #        run: |
+          #          set -exu
+          #          jfrog rt c import "$ARTIFACTORY_TOKEN"
+          #          jfrog rt ping
+          #          pkg=$(find bin -name 'ros-foxy-indoor-pos*.deb')
+          #          jfrog rt u --deb "$DISTRIBUTION/$COMPONENT/$ARCHITECTURE" \
+          #                     --target-props COMMIT="$GITHUB_SHA" \
+          #                     "$pkg" \
+          #                     "$ARTIFACTORY_REPO"
