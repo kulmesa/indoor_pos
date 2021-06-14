@@ -34,7 +34,7 @@ jobs:
           popd
 
       - name: rebuild build step
-        if: github.event.action == 'rebuild'
+        if: github.event.action == 'rebuild' || github.event_name == 'push'
         run: |
           echo "this is a rebuild build step"
 
